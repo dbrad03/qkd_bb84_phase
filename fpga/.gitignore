@@ -1,0 +1,30 @@
+# Vivado build artifacts
+vivado/**/sim/
+vivado/**/*.cache/
+vivado/**/*.hw/
+vivado/**/*.ip_user_files/
+vivado/**/*.runs/
+vivado/**/*.gen/
+vivado/**/*.sim/
+vivado/**/NA/
+vivado/**/*.jou
+vivado/**/*.log
+vivado/**/*.str
+
+# Keep the .xpr, block design, constraints, and IP configs
+# (these are small and needed to recreate the build)
+
+# Cocotb sim build artifacts
+sim/sim_build/
+sim/__pycache__/
+sim/*.vcd
+sim/*.fst
+
+# Python
+__pycache__/
+*.pyc
+
+# Bitstream exports (large, track separately or via releases)
+# Uncomment if you want to commit the bitstream:
+# !vivado/**/*.bit
+# !vivado/**/*.hwh
