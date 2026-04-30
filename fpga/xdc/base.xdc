@@ -26,10 +26,15 @@ set_property IOSTANDARD LVCMOS18 [ get_ports "sw[3]" ]
 
 
 ## CDC false paths — quasi-static signals with 2-FF synchronizers in RTL
-# s_axi_aclk (clk_pl_0) -> rfdc_aclk (RFDAC1_CLK)
-set_false_path -from [get_clocks clk_pl_0] -to [get_clocks RFDAC1_CLK]
-# rfdc_aclk (RFDAC1_CLK) -> s_axi_aclk (clk_pl_0)
-set_false_path -from [get_clocks RFDAC1_CLK] -to [get_clocks clk_pl_0]
+# clk_pl_0 <-> RFDAC0_CLK (Alice, Tile 228)
+set_false_path -from [get_clocks clk_pl_0] -to [get_clocks RFDAC0_CLK]
+set_false_path -from [get_clocks RFDAC0_CLK] -to [get_clocks clk_pl_0]
+# clk_pl_0 <-> RFDAC2_CLK (Bob, Tile 230)
+set_false_path -from [get_clocks clk_pl_0] -to [get_clocks RFDAC2_CLK]
+set_false_path -from [get_clocks RFDAC2_CLK] -to [get_clocks clk_pl_0]
+# RFDAC0_CLK <-> RFDAC2_CLK (no direct crossing, but related clocks)
+set_false_path -from [get_clocks RFDAC0_CLK] -to [get_clocks RFDAC2_CLK]
+set_false_path -from [get_clocks RFDAC2_CLK] -to [get_clocks RFDAC0_CLK]
 
 set_property BITSTREAM.CONFIG.UNUSEDPIN PULLUP [current_design]
 set_property BITSTREAM.CONFIG.OVERTEMPSHUTDOWN ENABLE [current_design]

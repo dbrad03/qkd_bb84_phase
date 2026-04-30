@@ -4,9 +4,6 @@
 // Vivado's "Add Module" prefers .v files. This just passes
 // all ports through to the SystemVerilog qkd_top_wrapper.
 
-(* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF m_axis_alice:m_axis_bob, ASSOCIATED_RESET rfdc_aresetn" *)
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 rfdc_aclk CLK" *)
-
 module qkd_top_wrapper_bd #(
     parameter integer C_S_AXI_DATA_WIDTH = 32,
     parameter integer C_S_AXI_ADDR_WIDTH = 5,
@@ -36,16 +33,24 @@ module qkd_top_wrapper_bd #(
     output wire                             s_axi_rvalid,
     input  wire                             s_axi_rready,
 
-    // RFDC data clock
-    input  wire        rfdc_aclk,
-    input  wire        rfdc_aresetn,
+    // RFDC data clock — Alice (DAC Tile 228, clk_dac0)
+    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 rfdc_aclk_0 CLK" *)
+    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF m_axis_alice, ASSOCIATED_RESET rfdc_aresetn_0" *)
+    input  wire        rfdc_aclk_0,
+    input  wire        rfdc_aresetn_0,
 
-    // AXI4-Stream to DAC (Alice)
+    // RFDC data clock — Bob (DAC Tile 230, clk_dac2)
+    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 rfdc_aclk_2 CLK" *)
+    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF m_axis_bob, ASSOCIATED_RESET rfdc_aresetn_2" *)
+    input  wire        rfdc_aclk_2,
+    input  wire        rfdc_aresetn_2,
+
+    // AXI4-Stream to DAC Tile 228 (Alice)
     output wire [SAMPLES_PER_BEAT*SAMPLE_WIDTH*2-1:0] m_axis_alice_tdata,
     output wire                                       m_axis_alice_tvalid,
     input  wire                                       m_axis_alice_tready,
 
-    // AXI4-Stream to DAC (Bob)
+    // AXI4-Stream to DAC Tile 230 (Bob)
     output wire [SAMPLES_PER_BEAT*SAMPLE_WIDTH*2-1:0] m_axis_bob_tdata,
     output wire                                       m_axis_bob_tvalid,
     input  wire                                       m_axis_bob_tready,
@@ -82,8 +87,10 @@ module qkd_top_wrapper_bd #(
         .s_axi_rresp       (s_axi_rresp),
         .s_axi_rvalid      (s_axi_rvalid),
         .s_axi_rready      (s_axi_rready),
-        .rfdc_aclk         (rfdc_aclk),
-        .rfdc_aresetn      (rfdc_aresetn),
+        .rfdc_aclk_0       (rfdc_aclk_0),
+        .rfdc_aresetn_0    (rfdc_aresetn_0),
+        .rfdc_aclk_2       (rfdc_aclk_2),
+        .rfdc_aresetn_2    (rfdc_aresetn_2),
         .m_axis_alice_tdata (m_axis_alice_tdata),
         .m_axis_alice_tvalid(m_axis_alice_tvalid),
         .m_axis_alice_tready(m_axis_alice_tready),

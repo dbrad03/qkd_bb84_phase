@@ -8,8 +8,9 @@
 // the armed phase trigger for atomic Alice+Bob phase updates.
 //
 // Clock domains:
-//   s_axi_aclk   (~100-150 MHz) — PS AXI register access
-//   rfdc_aclk    (~307 MHz)     — PSK generators, DAC AXI-Stream outputs
+//   s_axi_aclk     (~100 MHz)  — PS AXI register access
+//   rfdc_aclk_0    (~200 MHz)  — Alice PSK generator (DAC Tile 228, clk_dac0)
+//   rfdc_aclk_2    (~200 MHz)  — Bob PSK generator   (DAC Tile 230, clk_dac2)
 
 module qkd_top_wrapper #(
     parameter integer C_S_AXI_DATA_WIDTH = 32,
@@ -40,16 +41,18 @@ module qkd_top_wrapper #(
     output wire                          s_axi_rvalid,
     input  wire                          s_axi_rready,
 
-    // RFDC data clock
-    input  wire  rfdc_aclk,
-    input  wire  rfdc_aresetn,
+    // RFDC data clocks (one per DAC tile)
+    input  wire  rfdc_aclk_0,      // DAC Tile 228 (clk_dac0) — Alice
+    input  wire  rfdc_aresetn_0,
+    input  wire  rfdc_aclk_2,      // DAC Tile 230 (clk_dac2) — Bob
+    input  wire  rfdc_aresetn_2,
 
-    // AXI4-Stream master to DAC Tile 229 Slice 0 (Alice)
+    // AXI4-Stream master to DAC Tile 228 (Alice)
     output wire [SAMPLES_PER_BEAT*SAMPLE_WIDTH*2-1:0] m_axis_alice_tdata,
     output wire                                       m_axis_alice_tvalid,
     input  wire                                       m_axis_alice_tready,
 
-    // AXI4-Stream master to DAC Tile 229 Slice 1 (Bob)
+    // AXI4-Stream master to DAC Tile 230 (Bob)
     output wire [SAMPLES_PER_BEAT*SAMPLE_WIDTH*2-1:0] m_axis_bob_tdata,
     output wire                                       m_axis_bob_tvalid,
     input  wire                                       m_axis_bob_tready,
@@ -105,86 +108,124 @@ module qkd_top_wrapper #(
     );
 
     // ---------------------------------------------------------------
-    // CDC: s_axi_aclk → rfdc_aclk (2-FF synchronizers)
+    // CDC: s_axi_aclk → rfdc_aclk_0 (Alice clock domain)
     // All signals are quasi-static (switches or ≤320 Hz protocol rate)
     // ---------------------------------------------------------------
 
-    // Switches
-    logic [3:0] sw_meta, sw_sync;
-    always_ff @(posedge rfdc_aclk) begin
-        sw_meta <= sw;
-        sw_sync <= sw_meta;
+    // Switches (synced to Alice clock — used for switch decode)
+    (* ASYNC_REG = "TRUE" *) logic [3:0] sw_meta_a, sw_sync_a;
+    always_ff @(posedge rfdc_aclk_0) begin
+        sw_meta_a <= sw;
+        sw_sync_a <= sw_meta_a;
     end
 
-    // Staged phase values from registers
-    logic [1:0] alice_staged_meta, alice_staged_sync;
-    logic [1:0] bob_staged_meta,   bob_staged_sync;
-    always_ff @(posedge rfdc_aclk) begin
+    // Alice staged phase
+    (* ASYNC_REG = "TRUE" *) logic [1:0] alice_staged_meta, alice_staged_sync;
+    always_ff @(posedge rfdc_aclk_0) begin
         alice_staged_meta <= alice_phase_staged;
         alice_staged_sync <= alice_staged_meta;
-        bob_staged_meta   <= bob_phase_staged;
-        bob_staged_sync   <= bob_staged_meta;
     end
 
-    // Phase apply pulse
-    logic phase_apply_meta, phase_apply_sync, phase_apply_prev;
-    always_ff @(posedge rfdc_aclk) begin
-        phase_apply_meta <= phase_apply;
-        phase_apply_sync <= phase_apply_meta;
-        phase_apply_prev <= phase_apply_sync;
+    // Phase apply pulse (Alice domain)
+    (* ASYNC_REG = "TRUE" *) logic phase_apply_meta_a, phase_apply_sync_a, phase_apply_prev_a;
+    always_ff @(posedge rfdc_aclk_0) begin
+        phase_apply_meta_a <= phase_apply;
+        phase_apply_sync_a <= phase_apply_meta_a;
+        phase_apply_prev_a <= phase_apply_sync_a;
     end
-    wire phase_apply_edge = phase_apply_sync & ~phase_apply_prev;
+    wire phase_apply_edge_a = phase_apply_sync_a & ~phase_apply_prev_a;
 
-    // Control register
-    logic [2:0] ctrl_meta, ctrl_sync;
-    always_ff @(posedge rfdc_aclk) begin
-        ctrl_meta <= ctrl;
-        ctrl_sync <= ctrl_meta;
+    // Control register (Alice domain)
+    (* ASYNC_REG = "TRUE" *) logic [2:0] ctrl_meta_a, ctrl_sync_a;
+    always_ff @(posedge rfdc_aclk_0) begin
+        ctrl_meta_a <= ctrl;
+        ctrl_sync_a <= ctrl_meta_a;
     end
 
     // ---------------------------------------------------------------
-    // Switch decode (on rfdc_aclk domain, after sync)
+    // CDC: s_axi_aclk → rfdc_aclk_2 (Bob clock domain)
     // ---------------------------------------------------------------
-    wire sw_mode = ~sw_sync[3];  // SW3=0 → switch mode
+
+    // Switches (synced to Bob clock)
+    (* ASYNC_REG = "TRUE" *) logic [3:0] sw_meta_b, sw_sync_b;
+    always_ff @(posedge rfdc_aclk_2) begin
+        sw_meta_b <= sw;
+        sw_sync_b <= sw_meta_b;
+    end
+
+    // Bob staged phase
+    (* ASYNC_REG = "TRUE" *) logic [1:0] bob_staged_meta, bob_staged_sync;
+    always_ff @(posedge rfdc_aclk_2) begin
+        bob_staged_meta <= bob_phase_staged;
+        bob_staged_sync <= bob_staged_meta;
+    end
+
+    // Phase apply pulse (Bob domain)
+    (* ASYNC_REG = "TRUE" *) logic phase_apply_meta_b, phase_apply_sync_b, phase_apply_prev_b;
+    always_ff @(posedge rfdc_aclk_2) begin
+        phase_apply_meta_b <= phase_apply;
+        phase_apply_sync_b <= phase_apply_meta_b;
+        phase_apply_prev_b <= phase_apply_sync_b;
+    end
+    wire phase_apply_edge_b = phase_apply_sync_b & ~phase_apply_prev_b;
+
+    // Control register (Bob domain)
+    (* ASYNC_REG = "TRUE" *) logic [2:0] ctrl_meta_b, ctrl_sync_b;
+    always_ff @(posedge rfdc_aclk_2) begin
+        ctrl_meta_b <= ctrl;
+        ctrl_sync_b <= ctrl_meta_b;
+    end
+
+    // ---------------------------------------------------------------
+    // Switch decode (Alice domain — SW3 selects mode)
+    // ---------------------------------------------------------------
+    wire sw_mode = ~sw_sync_a[3];  // SW3=0 → switch mode
 
     // Alice: SW0 = basis (Z/X), SW1 = bit (0/1)
-    //   Z-basis bit 0 → phase 0     (2'b00)
-    //   Z-basis bit 1 → phase pi    (2'b10)
-    //   X-basis bit 0 → phase pi/2  (2'b01)
-    //   X-basis bit 1 → phase 3pi/2 (2'b11)
-    wire [1:0] sw_alice_phase = {sw_sync[1], sw_sync[0]};
+    wire [1:0] sw_alice_phase = {sw_sync_a[1], sw_sync_a[0]};
 
     // Bob: SW2 = basis (Z/X), no bit selection
-    //   Z-basis → phase 0    (2'b00)
-    //   X-basis → phase pi/2 (2'b01)
-    wire [1:0] sw_bob_phase = {1'b0, sw_sync[2]};
+    wire [1:0] sw_bob_phase = {1'b0, sw_sync_b[2]};
 
     // ---------------------------------------------------------------
-    // Armed trigger and phase mux (on rfdc_aclk domain)
+    // Armed trigger and phase mux — Alice (rfdc_aclk_0 domain)
     // ---------------------------------------------------------------
-    logic [1:0] reg_alice_active, reg_bob_active;
+    logic [1:0] reg_alice_active;
 
-    always_ff @(posedge rfdc_aclk) begin
-        if (!rfdc_aresetn) begin
+    always_ff @(posedge rfdc_aclk_0) begin
+        if (!rfdc_aresetn_0) begin
             reg_alice_active <= 2'b00;
-            reg_bob_active   <= 2'b00;
-        end else if (phase_apply_edge) begin
-            // Atomically latch both phases on the apply pulse
+        end else if (phase_apply_edge_a) begin
             reg_alice_active <= alice_staged_sync;
-            reg_bob_active   <= bob_staged_sync;
         end
     end
 
-    // Mode mux: switch mode vs register mode
     wire [1:0] alice_phase_active = sw_mode ? sw_alice_phase : reg_alice_active;
-    wire [1:0] bob_phase_active   = sw_mode ? sw_bob_phase   : reg_bob_active;
 
     // ---------------------------------------------------------------
-    // CDC: rfdc_aclk → s_axi_aclk (readback for STATUS and ACTIVE regs)
+    // Armed trigger and phase mux — Bob (rfdc_aclk_2 domain)
     // ---------------------------------------------------------------
-    logic [1:0] alice_active_rd_meta, alice_active_rd_sync;
-    logic [1:0] bob_active_rd_meta,   bob_active_rd_sync;
-    logic       sw_mode_rd_meta,      sw_mode_rd_sync;
+    logic [1:0] reg_bob_active;
+
+    // sw_mode for Bob domain — re-derive from Bob's synced switches
+    wire sw_mode_b = ~sw_sync_b[3];
+
+    always_ff @(posedge rfdc_aclk_2) begin
+        if (!rfdc_aresetn_2) begin
+            reg_bob_active <= 2'b00;
+        end else if (phase_apply_edge_b) begin
+            reg_bob_active <= bob_staged_sync;
+        end
+    end
+
+    wire [1:0] bob_phase_active = sw_mode_b ? sw_bob_phase : reg_bob_active;
+
+    // ---------------------------------------------------------------
+    // CDC: rfdc_aclk_0/2 → s_axi_aclk (readback for STATUS and ACTIVE regs)
+    // ---------------------------------------------------------------
+    (* ASYNC_REG = "TRUE" *) logic [1:0] alice_active_rd_meta, alice_active_rd_sync;
+    (* ASYNC_REG = "TRUE" *) logic [1:0] bob_active_rd_meta,   bob_active_rd_sync;
+    (* ASYNC_REG = "TRUE" *) logic       sw_mode_rd_meta,      sw_mode_rd_sync;
 
     always_ff @(posedge s_axi_aclk) begin
         alice_active_rd_meta <= alice_phase_active;
@@ -195,26 +236,27 @@ module qkd_top_wrapper #(
         sw_mode_rd_sync      <= sw_mode_rd_meta;
     end
 
-    wire alice_en = ctrl_sync[1];
-    wire bob_en   = ctrl_sync[2];
-    wire global_en = ctrl_sync[0];
+    wire alice_en  = ctrl_sync_a[1];
+    wire bob_en    = ctrl_sync_b[2];
+    wire global_en_a = ctrl_sync_a[0];
+    wire global_en_b = ctrl_sync_b[0];
 
-    wire alice_running = global_en & alice_en;
-    wire bob_running   = global_en & bob_en;
+    wire alice_running = global_en_a & alice_en;
+    wire bob_running   = global_en_b & bob_en;
 
     assign status = {sw_mode_rd_sync, bob_running, alice_running};
     assign alice_phase_active_readback = alice_active_rd_sync;
     assign bob_phase_active_readback   = bob_active_rd_sync;
 
     // ---------------------------------------------------------------
-    // PSK generators (on rfdc_aclk domain)
+    // PSK generators
     // ---------------------------------------------------------------
     axis_psk_gen #(
         .SAMPLES_PER_BEAT(SAMPLES_PER_BEAT),
         .SAMPLE_WIDTH(SAMPLE_WIDTH)
     ) u_alice (
-        .aclk         (rfdc_aclk),
-        .aresetn      (rfdc_aresetn),
+        .aclk         (rfdc_aclk_0),
+        .aresetn      (rfdc_aresetn_0),
         .enable       (alice_running),
         .phase_select (alice_phase_active),
         .m_axis_tdata (m_axis_alice_tdata),
@@ -226,8 +268,8 @@ module qkd_top_wrapper #(
         .SAMPLES_PER_BEAT(SAMPLES_PER_BEAT),
         .SAMPLE_WIDTH(SAMPLE_WIDTH)
     ) u_bob (
-        .aclk         (rfdc_aclk),
-        .aresetn      (rfdc_aresetn),
+        .aclk         (rfdc_aclk_2),
+        .aresetn      (rfdc_aresetn_2),
         .enable       (bob_running),
         .phase_select (bob_phase_active),
         .m_axis_tdata (m_axis_bob_tdata),
