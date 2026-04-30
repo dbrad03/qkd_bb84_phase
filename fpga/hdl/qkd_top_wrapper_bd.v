@@ -4,6 +4,9 @@
 // Vivado's "Add Module" prefers .v files. This just passes
 // all ports through to the SystemVerilog qkd_top_wrapper.
 
+(* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF m_axis_alice:m_axis_bob, ASSOCIATED_RESET rfdc_aresetn" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 rfdc_aclk CLK" *)
+
 module qkd_top_wrapper_bd #(
     parameter integer C_S_AXI_DATA_WIDTH = 32,
     parameter integer C_S_AXI_ADDR_WIDTH = 5,
