@@ -1,0 +1,13 @@
+[Unit]
+Description=QKD Phase-BB84 FPGA Auto-Configuration
+After=network.target pynq.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/bin/qkd_autostart.py
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

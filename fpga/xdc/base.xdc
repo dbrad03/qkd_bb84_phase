@@ -24,17 +24,24 @@ set_property IOSTANDARD LVCMOS18 [ get_ports "sw[2]" ]
 set_property PACKAGE_PIN AV11 [ get_ports "sw[3]" ]
 set_property IOSTANDARD LVCMOS18 [ get_ports "sw[3]" ]
 
+## USER PUSH BUTTONS (from RealDigital official XDC: 4x2_LED_PB__SW.xdc)
+set_property PACKAGE_PIN AV12 [ get_ports "btn[0]" ]
+set_property IOSTANDARD LVCMOS18 [ get_ports "btn[0]" ]
+
+set_property PACKAGE_PIN AV10 [ get_ports "btn[1]" ]
+set_property IOSTANDARD LVCMOS18 [ get_ports "btn[1]" ]
+
+set_property PACKAGE_PIN AW9 [ get_ports "btn[2]" ]
+set_property IOSTANDARD LVCMOS18 [ get_ports "btn[2]" ]
+
+set_property PACKAGE_PIN AT12 [ get_ports "btn[3]" ]
+set_property IOSTANDARD LVCMOS18 [ get_ports "btn[3]" ]
+
 
 ## CDC false paths — quasi-static signals with 2-FF synchronizers in RTL
-# clk_pl_0 <-> RFDAC0_CLK (Alice, Tile 228)
+# clk_pl_0 <-> RFDAC0_CLK (Alice)
 set_false_path -from [get_clocks clk_pl_0] -to [get_clocks RFDAC0_CLK]
 set_false_path -from [get_clocks RFDAC0_CLK] -to [get_clocks clk_pl_0]
-# clk_pl_0 <-> RFDAC2_CLK (Bob, Tile 230)
-set_false_path -from [get_clocks clk_pl_0] -to [get_clocks RFDAC2_CLK]
-set_false_path -from [get_clocks RFDAC2_CLK] -to [get_clocks clk_pl_0]
-# RFDAC0_CLK <-> RFDAC2_CLK (no direct crossing, but related clocks)
-set_false_path -from [get_clocks RFDAC0_CLK] -to [get_clocks RFDAC2_CLK]
-set_false_path -from [get_clocks RFDAC2_CLK] -to [get_clocks RFDAC0_CLK]
 
 set_property BITSTREAM.CONFIG.UNUSEDPIN PULLUP [current_design]
 set_property BITSTREAM.CONFIG.OVERTEMPSHUTDOWN ENABLE [current_design]

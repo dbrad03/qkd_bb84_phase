@@ -1,17 +1,17 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
-// AXI4-Lite Register File for QKD Phase-BB84 Control
+// AXI4-Lite Register File for QKD Phase-BB84 Control (Single Channel)
 //
 // Register Map (byte offsets):
-//   0x00  CTRL              R/W  [0] global_en, [1] alice_en, [2] bob_en
+//   0x00  CTRL              R/W  [0] global_en, [1] alice_en, [2] auto_cycle_en
 //   0x04  ALICE_PHASE_STAGED R/W [1:0] Alice phase (staged, not active until PHASE_APPLY)
-//   0x08  BOB_PHASE_STAGED  R/W  [1:0] Bob phase (staged)
-//   0x0C  STATUS            R    [0] alice_running, [1] bob_running, [2] sw_mode
+//   0x08  AUTO_FREQ_HZ      R    [31:0] Current auto-cycle frequency in Hz
+//   0x0C  STATUS            R    [0] alice_running, [1] auto_cycling, [2] sw_mode
 //   0x10  PHASE_APPLY       R/W  [0] apply trigger (auto-clears after 1 cycle)
 //   0x14  ALICE_PHASE_ACTIVE R   [1:0] Currently active Alice phase
-//   0x18  BOB_PHASE_ACTIVE  R    [1:0] Currently active Bob phase
-//   0x1C  VERSION           R    32'h2026_0425
+//   0x18  AUTO_PERIOD_TICKS  R   [31:0] Current auto-cycle period in RFDC ticks
+//   0x1C  VERSION           R    32'h2026_0505
 //
 // AXI protocol state machine adapted from Xilinx auto-generated template.
 
@@ -44,15 +44,15 @@ module axi_lite_regs #(
     input  wire                          S_AXI_RREADY,
 
     // Register outputs (directly accessible by wrapper)
-    output wire [2:0]  ctrl,                // {bob_en, alice_en, global_en}
+    output wire [2:0]  ctrl,                // {auto_cycle_en, alice_en, global_en}
     output wire [1:0]  alice_phase_staged,
-    output wire [1:0]  bob_phase_staged,
     output wire        phase_apply,         // single-cycle pulse
 
     // Read-only inputs from wrapper
-    input  wire [2:0]  status,              // {sw_mode, bob_running, alice_running}
+    input  wire [2:0]  status,              // {sw_mode, auto_cycling, alice_running}
     input  wire [1:0]  alice_phase_active,
-    input  wire [1:0]  bob_phase_active
+    input  wire [31:0] auto_freq_hz,
+    input  wire [31:0] auto_period_ticks
 );
 
     // ---------------------------------------------------------------
@@ -82,14 +82,13 @@ module axi_lite_regs #(
 
     logic [C_S_AXI_DATA_WIDTH-1:0] reg_ctrl;            // 0x00
     logic [C_S_AXI_DATA_WIDTH-1:0] reg_alice_staged;    // 0x04
-    logic [C_S_AXI_DATA_WIDTH-1:0] reg_bob_staged;      // 0x08
+    // 0x08 AUTO_FREQ_HZ is read-only (external input)
     // 0x0C STATUS is read-only (external input)
     logic [C_S_AXI_DATA_WIDTH-1:0] reg_phase_apply;     // 0x10
     // 0x14, 0x18, 0x1C are read-only
 
     assign ctrl               = reg_ctrl[2:0];
     assign alice_phase_staged = reg_alice_staged[1:0];
-    assign bob_phase_staged   = reg_bob_staged[1:0];
     assign phase_apply        = reg_phase_apply[0];
 
     // ---------------------------------------------------------------
@@ -152,10 +151,9 @@ module axi_lite_regs #(
 
     always_ff @(posedge S_AXI_ACLK) begin
         if (!S_AXI_ARESETN) begin
-            reg_ctrl        <= 0;
+            reg_ctrl         <= 0;
             reg_alice_staged <= 0;
-            reg_bob_staged  <= 0;
-            reg_phase_apply <= 0;
+            reg_phase_apply  <= 0;
         end else begin
             // Auto-clear PHASE_APPLY after 1 cycle
             if (reg_phase_apply[0])
@@ -165,7 +163,7 @@ module axi_lite_regs #(
                 case (wr_addr)
                     3'h0: reg_ctrl         <= S_AXI_WDATA;  // 0x00 CTRL
                     3'h1: reg_alice_staged <= S_AXI_WDATA;  // 0x04 ALICE_PHASE_STAGED
-                    3'h2: reg_bob_staged   <= S_AXI_WDATA;  // 0x08 BOB_PHASE_STAGED
+                    // 3'h2: AUTO_FREQ_HZ is read-only, ignore writes
                     // 3'h3: STATUS is read-only, ignore writes
                     3'h4: reg_phase_apply  <= S_AXI_WDATA;  // 0x10 PHASE_APPLY
                     // 3'h5, 3'h6, 3'h7: read-only, ignore writes
@@ -223,12 +221,12 @@ module axi_lite_regs #(
         case (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS : ADDR_LSB])
             3'h0: rdata = reg_ctrl;                                        // 0x00
             3'h1: rdata = reg_alice_staged;                                // 0x04
-            3'h2: rdata = reg_bob_staged;                                  // 0x08
+            3'h2: rdata = auto_freq_hz;                                    // 0x08
             3'h3: rdata = {29'd0, status};                                 // 0x0C
             3'h4: rdata = reg_phase_apply;                                 // 0x10
             3'h5: rdata = {30'd0, alice_phase_active};                     // 0x14
-            3'h6: rdata = {30'd0, bob_phase_active};                       // 0x18
-            3'h7: rdata = 32'h2026_0425;                                   // 0x1C VERSION
+            3'h6: rdata = auto_period_ticks;                               // 0x18
+            3'h7: rdata = 32'h2026_0505;                                   // 0x1C VERSION
             default: rdata = 0;
         endcase
     end
