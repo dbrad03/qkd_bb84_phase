@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Apr 30 13:43:14 2026" VIVADOVERSION="2025.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Apr 30 14:39:37 2026" VIVADOVERSION="2025.1">
 
   <SYSTEMINFO ARCH="zynquplusRFSOC" DEVICE="xczu48dr" NAME="design_1" PACKAGE="ffvg1517" SPEEDGRADE="-2"/>
 
@@ -758,7 +758,7 @@
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_reset" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="rst"/>
-        <PORT CLKFREQUENCY="200000000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
+        <PORT CLKFREQUENCY="153600000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="clk_dac0"/>
           </CONNECTIONS>
@@ -804,7 +804,7 @@
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_reset" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="rst"/>
-        <PORT CLKFREQUENCY="200000000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
+        <PORT CLKFREQUENCY="153600000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="clk_dac2"/>
           </CONNECTIONS>
@@ -863,12 +863,12 @@
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="s20_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="200000000" DIR="I" NAME="rfdc_aclk_0" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
+        <PORT CLKFREQUENCY="153600000" DIR="I" NAME="rfdc_aclk_0" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="clk_dac0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="200000000" DIR="I" NAME="rfdc_aclk_2" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
+        <PORT CLKFREQUENCY="153600000" DIR="I" NAME="rfdc_aclk_2" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="clk_dac2"/>
           </CONNECTIONS>
@@ -997,7 +997,7 @@
       <BUSINTERFACES>
         <BUSINTERFACE BUSNAME="__NOC__" NAME="m_axis_alice" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_usp_rf_data_converter_0_0_clk_dac0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="200000000"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="153600000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
           <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
@@ -1017,7 +1017,7 @@
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="__NOC__" NAME="m_axis_bob" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_usp_rf_data_converter_0_0_clk_dac2"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="200000000"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="153600000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
           <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
@@ -1514,25 +1514,25 @@
         <PARAMETER NAME="C_Clock_Forwarding" VALUE="false"/>
         <PARAMETER NAME="C_Converter_Setup" VALUE="1"/>
         <PARAMETER NAME="C_DAC0_Band" VALUE="0"/>
-        <PARAMETER NAME="C_DAC0_Clock_Dist" VALUE="0"/>
+        <PARAMETER NAME="C_DAC0_Clock_Dist" VALUE="2"/>
         <PARAMETER NAME="C_DAC0_Clock_Source" VALUE="4"/>
         <PARAMETER NAME="C_DAC0_Clock_Source_MX" VALUE="4"/>
         <PARAMETER NAME="C_DAC0_Enable" VALUE="1"/>
-        <PARAMETER NAME="C_DAC0_FBDIV" VALUE="32"/>
-        <PARAMETER NAME="C_DAC0_Fabric_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="C_DAC0_FBDIV" VALUE="20"/>
+        <PARAMETER NAME="C_DAC0_Fabric_Freq" VALUE="153.600"/>
         <PARAMETER NAME="C_DAC0_Fs_Max" VALUE="7.000"/>
         <PARAMETER NAME="C_DAC0_Interpolation" VALUE="16"/>
         <PARAMETER NAME="C_DAC0_Link_Coupling" VALUE="0"/>
         <PARAMETER NAME="C_DAC0_Multi_Tile_Sync" VALUE="false"/>
         <PARAMETER NAME="C_DAC0_OutDiv" VALUE="2"/>
-        <PARAMETER NAME="C_DAC0_Outclk_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="C_DAC0_Outclk_Freq" VALUE="153.600"/>
         <PARAMETER NAME="C_DAC0_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="C_DAC0_Refclk_Div" VALUE="1"/>
-        <PARAMETER NAME="C_DAC0_Refclk_Freq" VALUE="400.000"/>
-        <PARAMETER NAME="C_DAC0_Sampling_Rate" VALUE="6.4"/>
+        <PARAMETER NAME="C_DAC0_Refclk_Freq" VALUE="491.520"/>
+        <PARAMETER NAME="C_DAC0_Sampling_Rate" VALUE="4.9152"/>
         <PARAMETER NAME="C_DAC0_Slices" VALUE="2"/>
         <PARAMETER NAME="C_DAC0_VOP" VALUE="20.0"/>
-        <PARAMETER NAME="C_DAC0_Vco" VALUE="12800.0"/>
+        <PARAMETER NAME="C_DAC0_Vco" VALUE="9830.4"/>
         <PARAMETER NAME="C_DAC1_Band" VALUE="0"/>
         <PARAMETER NAME="C_DAC1_Clock_Dist" VALUE="0"/>
         <PARAMETER NAME="C_DAC1_Clock_Source" VALUE="5"/>
@@ -1554,25 +1554,25 @@
         <PARAMETER NAME="C_DAC1_VOP" VALUE="20.0"/>
         <PARAMETER NAME="C_DAC1_Vco" VALUE="12800.0"/>
         <PARAMETER NAME="C_DAC2_Band" VALUE="0"/>
-        <PARAMETER NAME="C_DAC2_Clock_Dist" VALUE="0"/>
+        <PARAMETER NAME="C_DAC2_Clock_Dist" VALUE="2"/>
         <PARAMETER NAME="C_DAC2_Clock_Source" VALUE="6"/>
         <PARAMETER NAME="C_DAC2_Clock_Source_MX" VALUE="6"/>
         <PARAMETER NAME="C_DAC2_Enable" VALUE="1"/>
-        <PARAMETER NAME="C_DAC2_FBDIV" VALUE="32"/>
-        <PARAMETER NAME="C_DAC2_Fabric_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="C_DAC2_FBDIV" VALUE="20"/>
+        <PARAMETER NAME="C_DAC2_Fabric_Freq" VALUE="153.600"/>
         <PARAMETER NAME="C_DAC2_Fs_Max" VALUE="7.000"/>
         <PARAMETER NAME="C_DAC2_Interpolation" VALUE="16"/>
         <PARAMETER NAME="C_DAC2_Link_Coupling" VALUE="0"/>
         <PARAMETER NAME="C_DAC2_Multi_Tile_Sync" VALUE="false"/>
         <PARAMETER NAME="C_DAC2_OutDiv" VALUE="2"/>
-        <PARAMETER NAME="C_DAC2_Outclk_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="C_DAC2_Outclk_Freq" VALUE="153.600"/>
         <PARAMETER NAME="C_DAC2_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="C_DAC2_Refclk_Div" VALUE="1"/>
-        <PARAMETER NAME="C_DAC2_Refclk_Freq" VALUE="400.000"/>
-        <PARAMETER NAME="C_DAC2_Sampling_Rate" VALUE="6.4"/>
+        <PARAMETER NAME="C_DAC2_Refclk_Freq" VALUE="491.520"/>
+        <PARAMETER NAME="C_DAC2_Sampling_Rate" VALUE="4.9152"/>
         <PARAMETER NAME="C_DAC2_Slices" VALUE="2"/>
         <PARAMETER NAME="C_DAC2_VOP" VALUE="20.0"/>
-        <PARAMETER NAME="C_DAC2_Vco" VALUE="12800.0"/>
+        <PARAMETER NAME="C_DAC2_Vco" VALUE="9830.4"/>
         <PARAMETER NAME="C_DAC3_Band" VALUE="0"/>
         <PARAMETER NAME="C_DAC3_Clock_Dist" VALUE="0"/>
         <PARAMETER NAME="C_DAC3_Clock_Source" VALUE="7"/>
@@ -2251,18 +2251,18 @@
         <PARAMETER NAME="Component_Name" VALUE="design_1_usp_rf_data_converter_0_0"/>
         <PARAMETER NAME="Converter_Setup" VALUE="1"/>
         <PARAMETER NAME="DAC0_Band" VALUE="0"/>
-        <PARAMETER NAME="DAC0_Clock_Dist" VALUE="0"/>
+        <PARAMETER NAME="DAC0_Clock_Dist" VALUE="2"/>
         <PARAMETER NAME="DAC0_Clock_Source" VALUE="4"/>
         <PARAMETER NAME="DAC0_Clock_Source_MX" VALUE="4"/>
         <PARAMETER NAME="DAC0_Enable" VALUE="1"/>
-        <PARAMETER NAME="DAC0_Fabric_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="DAC0_Fabric_Freq" VALUE="153.600"/>
         <PARAMETER NAME="DAC0_Link_Coupling" VALUE="0"/>
         <PARAMETER NAME="DAC0_Multi_Tile_Sync" VALUE="false"/>
-        <PARAMETER NAME="DAC0_Outclk_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="DAC0_Outclk_Freq" VALUE="153.600"/>
         <PARAMETER NAME="DAC0_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="DAC0_Refclk_Div" VALUE="1"/>
-        <PARAMETER NAME="DAC0_Refclk_Freq" VALUE="400.000"/>
-        <PARAMETER NAME="DAC0_Sampling_Rate" VALUE="6.4"/>
+        <PARAMETER NAME="DAC0_Refclk_Freq" VALUE="491.520"/>
+        <PARAMETER NAME="DAC0_Sampling_Rate" VALUE="4.9152"/>
         <PARAMETER NAME="DAC0_VOP" VALUE="20.0"/>
         <PARAMETER NAME="DAC1_Band" VALUE="0"/>
         <PARAMETER NAME="DAC1_Clock_Dist" VALUE="0"/>
@@ -2283,18 +2283,18 @@
         <PARAMETER NAME="DAC230_En" VALUE="false"/>
         <PARAMETER NAME="DAC231_En" VALUE="false"/>
         <PARAMETER NAME="DAC2_Band" VALUE="0"/>
-        <PARAMETER NAME="DAC2_Clock_Dist" VALUE="0"/>
+        <PARAMETER NAME="DAC2_Clock_Dist" VALUE="2"/>
         <PARAMETER NAME="DAC2_Clock_Source" VALUE="6"/>
         <PARAMETER NAME="DAC2_Clock_Source_MX" VALUE="6"/>
         <PARAMETER NAME="DAC2_Enable" VALUE="1"/>
-        <PARAMETER NAME="DAC2_Fabric_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="DAC2_Fabric_Freq" VALUE="153.600"/>
         <PARAMETER NAME="DAC2_Link_Coupling" VALUE="0"/>
         <PARAMETER NAME="DAC2_Multi_Tile_Sync" VALUE="false"/>
-        <PARAMETER NAME="DAC2_Outclk_Freq" VALUE="200.000"/>
+        <PARAMETER NAME="DAC2_Outclk_Freq" VALUE="153.600"/>
         <PARAMETER NAME="DAC2_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="DAC2_Refclk_Div" VALUE="1"/>
-        <PARAMETER NAME="DAC2_Refclk_Freq" VALUE="400.000"/>
-        <PARAMETER NAME="DAC2_Sampling_Rate" VALUE="6.4"/>
+        <PARAMETER NAME="DAC2_Refclk_Freq" VALUE="491.520"/>
+        <PARAMETER NAME="DAC2_Sampling_Rate" VALUE="4.9152"/>
         <PARAMETER NAME="DAC2_VOP" VALUE="20.0"/>
         <PARAMETER NAME="DAC3_Band" VALUE="0"/>
         <PARAMETER NAME="DAC3_Clock_Dist" VALUE="0"/>
@@ -2740,14 +2740,14 @@
         <PARAMETER NAME="C_HIGHADDR" VALUE="0x8007FFFF"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="200000000" DIR="O" NAME="clk_dac0" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
+        <PORT CLKFREQUENCY="153600000" DIR="O" NAME="clk_dac0" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="s0_axis_aclk"/>
             <CONNECTION INSTANCE="proc_sys_reset_1" PORT="slowest_sync_clk"/>
             <CONNECTION INSTANCE="qkd_top_wrapper_bd_0" PORT="rfdc_aclk_0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="200000000" DIR="O" NAME="clk_dac2" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
+        <PORT CLKFREQUENCY="153600000" DIR="O" NAME="clk_dac2" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="s2_axis_aclk"/>
             <CONNECTION INSTANCE="proc_sys_reset_2" PORT="slowest_sync_clk"/>
@@ -2790,7 +2790,7 @@
             <CONNECTION INSTANCE="qkd_top_wrapper_bd_0" PORT="m_axis_alice_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="200000000" DIR="I" NAME="s0_axis_aclk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
+        <PORT CLKFREQUENCY="153600000" DIR="I" NAME="s0_axis_aclk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="clk_dac0"/>
           </CONNECTIONS>
@@ -2815,7 +2815,7 @@
             <CONNECTION INSTANCE="qkd_top_wrapper_bd_0" PORT="m_axis_bob_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="200000000" DIR="I" NAME="s2_axis_aclk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
+        <PORT CLKFREQUENCY="153600000" DIR="I" NAME="s2_axis_aclk" SIGIS="clk" SIGNAME="usp_rf_data_converter_0_clk_dac2">
           <CONNECTIONS>
             <CONNECTION INSTANCE="usp_rf_data_converter_0" PORT="clk_dac2"/>
           </CONNECTIONS>
@@ -2998,7 +2998,7 @@
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="__NOC__" NAME="s00_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_usp_rf_data_converter_0_0_clk_dac0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="200000000"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="153600000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
           <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
@@ -3018,7 +3018,7 @@
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="__NOC__" NAME="s20_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_usp_rf_data_converter_0_0_clk_dac2"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="200000000"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="153600000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
           <PARAMETER NAME="HAS_TREADY" VALUE="1"/>

@@ -1,0 +1,231 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Wed May 21 22:58:25 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Wed Apr 29 19:56:01 2026
+# Process ID         : 2224835
+# Current directory  : /home/dylanjb/Documents/qkd_bb84_phase
+# Command line       : vivado
+# Log file           : /home/dylanjb/Documents/qkd_bb84_phase/vivado.log
+# Journal file       : /home/dylanjb/Documents/qkd_bb84_phase/vivado.jou
+# Running On         : eecs-digital-40
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.3 LTS
+# Processor Detail   : AMD Ryzen 7 5825U with Radeon Graphics
+# CPU Frequency      : 3512.100 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 29342 MB
+# Swap memory        : 8589 MB
+# Total Virtual      : 37932 MB
+# Available Virtual  : 34441 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.xpr
+update_compile_order -fileset sources_1
+open_bd_design {/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd}
+validate_bd_design
+save_bd_design
+generate_target all [get_files  /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+catch { config_ip_cache -export [get_ips -all design_1_usp_rf_data_converter_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_zynq_ultra_ps_e_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_proc_sys_reset_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_proc_sys_reset_0_1] }
+catch { config_ip_cache -export [get_ips -all design_1_axi_smc_0] }
+export_ip_user_files -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+launch_runs design_1_axi_smc_0_synth_1 design_1_proc_sys_reset_0_0_synth_1 design_1_proc_sys_reset_0_1_synth_1 design_1_qkd_top_wrapper_bd_0_0_synth_1 design_1_usp_rf_data_converter_0_0_synth_1 design_1_zynq_ultra_ps_e_0_0_synth_1 -jobs 8
+wait_on_run design_1_axi_smc_0_synth_1
+wait_on_run design_1_proc_sys_reset_0_0_synth_1
+wait_on_run design_1_proc_sys_reset_0_1_synth_1
+wait_on_run design_1_qkd_top_wrapper_bd_0_0_synth_1
+wait_on_run design_1_usp_rf_data_converter_0_0_synth_1
+wait_on_run design_1_zynq_ultra_ps_e_0_0_synth_1
+export_simulation -lib_map_path [list {modelsim=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/modelsim} {questa=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/questa} {xcelium=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/xcelium} {vcs=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/vcs} {riviera=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/riviera}] -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -directory /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/sim_scripts -ip_user_files_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files -ipstatic_source_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_qkd_top_wrapper_bd_0_0]
+validate_bd_design
+report_ip_status -name ip_status 
+update_module_reference [get_ips  design_1_qkd_top_wrapper_bd_0_0]
+report_ip_status -name ip_status 
+validate_bd_design
+report_ip_status -name ip_status 
+regenerate_bd_layout -routing
+generate_target all [get_files  /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+catch { config_ip_cache -export [get_ips -all design_1_usp_rf_data_converter_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_zynq_ultra_ps_e_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_proc_sys_reset_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_proc_sys_reset_0_1] }
+catch { config_ip_cache -export [get_ips -all design_1_axi_smc_0] }
+export_ip_user_files -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+launch_runs design_1_axi_smc_0_synth_1 design_1_proc_sys_reset_0_0_synth_1 design_1_proc_sys_reset_0_1_synth_1 design_1_qkd_top_wrapper_bd_0_0_synth_1 design_1_usp_rf_data_converter_0_0_synth_1 design_1_zynq_ultra_ps_e_0_0_synth_1 -jobs 8
+wait_on_run design_1_axi_smc_0_synth_1
+wait_on_run design_1_proc_sys_reset_0_0_synth_1
+wait_on_run design_1_proc_sys_reset_0_1_synth_1
+wait_on_run design_1_qkd_top_wrapper_bd_0_0_synth_1
+wait_on_run design_1_usp_rf_data_converter_0_0_synth_1
+wait_on_run design_1_zynq_ultra_ps_e_0_0_synth_1
+export_simulation -lib_map_path [list {modelsim=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/modelsim} {questa=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/questa} {xcelium=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/xcelium} {vcs=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/vcs} {riviera=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/riviera}] -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -directory /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/sim_scripts -ip_user_files_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files -ipstatic_source_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+make_wrapper -files [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -top
+add_files -norecurse /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top design_1_wrapper [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+open_run impl_1
+close_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+open_run impl_1
+close_design
+open_run impl_1
+get_msg_config -rules -severity WARNING
+get_msg_config -count -severity WARNING
+close_design
+delete_bd_objs [get_bd_nets usp_rf_data_converter_0_clk_dac1]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/rfdc_aclk] [get_bd_pins usp_rf_data_converter_0/clk_dac0]
+connect_bd_net [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins usp_rf_data_converter_0/clk_dac0]
+disconnect_bd_net /proc_sys_reset_1_peripheral_aresetn [get_bd_pins usp_rf_data_converter_0/s1_axis_aresetn]
+connect_bd_net [get_bd_pins usp_rf_data_converter_0/s0_axis_aresetn] [get_bd_pins proc_sys_reset_1/peripheral_aresetn]
+startgroup
+set_property -dict [list \
+  CONFIG.DAC0_Outclk_Freq {200.000} \
+  CONFIG.DAC_Data_Width00 {4} \
+  CONFIG.DAC_Data_Width02 {4} \
+  CONFIG.DAC_Interpolation_Mode00 {16} \
+  CONFIG.DAC_Interpolation_Mode02 {16} \
+  CONFIG.DAC_Mixer_Type00 {2} \
+  CONFIG.DAC_Mixer_Type02 {2} \
+  CONFIG.DAC_NCO_Freq00 {0.08} \
+  CONFIG.DAC_NCO_Freq02 {0.08} \
+  CONFIG.DAC_Slice00_Enable {true} \
+  CONFIG.DAC_Slice10_Enable {false} \
+  CONFIG.DAC_Slice12_Enable {false} \
+] [get_bd_cells usp_rf_data_converter_0]
+delete_bd_objs [get_bd_nets qkd_top_wrapper_bd_0_m_axis_alice_tdata] [get_bd_nets qkd_top_wrapper_bd_0_m_axis_alice_tvalid] [get_bd_nets usp_rf_data_converter_0_s10_axis_tready] [get_bd_nets qkd_top_wrapper_bd_0_m_axis_bob_tdata] [get_bd_nets qkd_top_wrapper_bd_0_m_axis_bob_tvalid] [get_bd_nets usp_rf_data_converter_0_s12_axis_tready] [get_bd_intf_nets usp_rf_data_converter_0_vout10] [get_bd_intf_nets usp_rf_data_converter_0_vout12]
+endgroup
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_alice_tdata] [get_bd_pins usp_rf_data_converter_0/s00_axis_tdata]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_alice_tvalid] [get_bd_pins usp_rf_data_converter_0/s00_axis_tvalid]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_alice_tready] [get_bd_pins usp_rf_data_converter_0/s00_axis_tready]
+delete_bd_objs [get_bd_intf_ports vout10_0]
+delete_bd_objs [get_bd_intf_ports vout12_0]
+startgroup
+make_bd_pins_external  [get_bd_cells usp_rf_data_converter_0]
+make_bd_intf_pins_external  [get_bd_cells usp_rf_data_converter_0]
+endgroup
+set_property location {1590 466} [get_bd_intf_ports vout02_0]
+set_property location {1595 489} [get_bd_intf_ports vout02_0]
+set_property location {1593 481} [get_bd_intf_ports vout02_0]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_bob_tdata] [get_bd_pins usp_rf_data_converter_0/s02_axis_tdata]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_bob_tvalid] [get_bd_pins usp_rf_data_converter_0/s02_axis_tvalid]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_bob_tready] [get_bd_pins usp_rf_data_converter_0/s02_axis_tready]
+save_bd_design
+delete_bd_objs [get_bd_intf_nets s00_axis_0_1]
+delete_bd_objs [get_bd_intf_ports s00_axis_0]
+delete_bd_objs [get_bd_intf_nets s02_axis_0_1]
+delete_bd_objs [get_bd_intf_ports s02_axis_0]
+save_bd_design
+generate_target all [get_files  /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+catch { config_ip_cache -export [get_ips -all design_1_usp_rf_data_converter_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_axi_smc_0] }
+catch { [ delete_ip_run [get_ips -all design_1_axi_smc_0] ] }
+export_ip_user_files -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+launch_runs design_1_usp_rf_data_converter_0_0_synth_1 -jobs 8
+wait_on_run design_1_usp_rf_data_converter_0_0_synth_1
+export_simulation -lib_map_path [list {modelsim=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/modelsim} {questa=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/questa} {xcelium=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/xcelium} {vcs=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/vcs} {riviera=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/riviera}] -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -directory /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/sim_scripts -ip_user_files_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files -ipstatic_source_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+startgroup
+set_property -dict [list \
+  CONFIG.DAC0_Clock_Dist {0} \
+  CONFIG.DAC2_Outclk_Freq {200.000} \
+  CONFIG.DAC2_PLL_Enable {true} \
+  CONFIG.DAC_Data_Width20 {4} \
+  CONFIG.DAC_Interpolation_Mode20 {16} \
+  CONFIG.DAC_Mixer_Type20 {2} \
+  CONFIG.DAC_NCO_Freq20 {0.08} \
+  CONFIG.DAC_Slice02_Enable {false} \
+  CONFIG.DAC_Slice20_Enable {true} \
+] [get_bd_cells usp_rf_data_converter_0]
+delete_bd_objs [get_bd_nets qkd_top_wrapper_bd_0_m_axis_bob_tdata] [get_bd_nets qkd_top_wrapper_bd_0_m_axis_bob_tvalid] [get_bd_nets usp_rf_data_converter_0_s02_axis_tready] [get_bd_intf_nets usp_rf_data_converter_0_vout02]
+endgroup
+delete_bd_objs [get_bd_intf_ports vout02_0]
+startgroup
+make_bd_pins_external  [get_bd_cells usp_rf_data_converter_0]
+make_bd_intf_pins_external  [get_bd_cells usp_rf_data_converter_0]
+endgroup
+set_property location {1623 466} [get_bd_intf_ports vout00_0]
+set_property location {1618 464} [get_bd_intf_ports vout00_0]
+delete_bd_objs [get_bd_intf_nets s20_axis_0_1] [get_bd_intf_ports s20_axis_0]
+undo
+delete_bd_objs [get_bd_intf_nets s20_axis_0_1]
+delete_bd_objs [get_bd_intf_ports s20_axis_0]
+delete_bd_objs [get_bd_intf_nets s00_axis_0_1]
+delete_bd_objs [get_bd_intf_ports s00_axis_0]
+delete_bd_objs [get_bd_nets usp_rf_data_converter_0_clk_dac2] [get_bd_ports clk_dac2_0]
+delete_bd_objs [get_bd_nets s2_axis_aresetn_0_1] [get_bd_ports s2_axis_aresetn_0]
+delete_bd_objs [get_bd_nets s2_axis_aclk_0_1] [get_bd_ports s2_axis_aclk_0]
+connect_bd_net [get_bd_pins usp_rf_data_converter_0/s2_axis_aresetn] [get_bd_pins proc_sys_reset_1/peripheral_aresetn]
+connect_bd_net [get_bd_pins usp_rf_data_converter_0/clk_dac2] [get_bd_pins usp_rf_data_converter_0/s2_axis_aclk]
+set_property location {3 1332 946} [get_bd_cells qkd_top_wrapper_bd_0]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_bob_tdata] [get_bd_pins usp_rf_data_converter_0/s20_axis_tdata]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_bob_tvalid] [get_bd_pins usp_rf_data_converter_0/s20_axis_tvalid]
+connect_bd_net [get_bd_pins qkd_top_wrapper_bd_0/m_axis_bob_tready] [get_bd_pins usp_rf_data_converter_0/s20_axis_tready]
+save_bd_design
+generate_target all [get_files  /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+catch { config_ip_cache -export [get_ips -all design_1_usp_rf_data_converter_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_axi_smc_0] }
+export_ip_user_files -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+launch_runs design_1_usp_rf_data_converter_0_0_synth_1 -jobs 8
+wait_on_run design_1_usp_rf_data_converter_0_0_synth_1
+export_simulation -lib_map_path [list {modelsim=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/modelsim} {questa=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/questa} {xcelium=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/xcelium} {vcs=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/vcs} {riviera=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/riviera}] -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -directory /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/sim_scripts -ip_user_files_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files -ipstatic_source_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+copy_bd_objs /  [get_bd_cells {proc_sys_reset_1}]
+set_property location {1 166 995} [get_bd_cells proc_sys_reset_2]
+connect_bd_net [get_bd_pins proc_sys_reset_2/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
+disconnect_bd_net /proc_sys_reset_1_peripheral_aresetn [get_bd_pins usp_rf_data_converter_0/s2_axis_aresetn]
+connect_bd_net [get_bd_pins usp_rf_data_converter_0/s2_axis_aresetn] [get_bd_pins proc_sys_reset_2/peripheral_aresetn]
+connect_bd_net [get_bd_pins proc_sys_reset_2/slowest_sync_clk] [get_bd_pins usp_rf_data_converter_0/clk_dac2]
+save_bd_design
+generate_target all [get_files  /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+catch { config_ip_cache -export [get_ips -all design_1_usp_rf_data_converter_0_0] }
+catch { config_ip_cache -export [get_ips -all design_1_axi_smc_0] }
+catch { config_ip_cache -export [get_ips -all design_1_proc_sys_reset_1_0] }
+export_ip_user_files -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd]
+launch_runs design_1_usp_rf_data_converter_0_0_synth_1 -jobs 8
+wait_on_run design_1_usp_rf_data_converter_0_0_synth_1
+export_simulation -lib_map_path [list {modelsim=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/modelsim} {questa=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/questa} {xcelium=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/xcelium} {vcs=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/vcs} {riviera=/home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.cache/compile_simlib/riviera}] -of_objects [get_files /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.srcs/sources_1/bd/design_1/design_1.bd] -directory /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/sim_scripts -ip_user_files_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files -ipstatic_source_dir /home/dylanjb/Documents/qkd_bb84_phase/fpga/vivado/qkd_phase_bb84/qkd_phase_bb84.ip_user_files/ipstatic -use_ip_compiled_libs -force -quiet
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+set_property location {1632 523} [get_bd_intf_ports vout20_0]
+set_property location {1628 539} [get_bd_intf_ports vout20_0]
+set_property location {1638 481} [get_bd_intf_ports vout00_0]
+set_property location {1642 500} [get_bd_intf_ports vout00_0]
+set_property location {1643 488} [get_bd_intf_ports vout00_0]
+set_property location {1637 530} [get_bd_intf_ports vout20_0]
+open_run impl_1
+close_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+open_run impl_1
+close_design
+delete_bd_objs [get_bd_nets usp_rf_data_converter_0_irq] [get_bd_ports irq_0]
+save_bd_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+wait_on_run impl_1
+open_run impl_1
+close_design

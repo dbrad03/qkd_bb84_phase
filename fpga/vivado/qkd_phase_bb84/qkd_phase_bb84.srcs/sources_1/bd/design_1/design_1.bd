@@ -126,19 +126,40 @@
             "value": "false"
           },
           "DAC0_Clock_Dist": {
-            "value": "0"
+            "value": "2"
           },
           "DAC0_Outclk_Freq": {
-            "value": "200.000"
+            "value": "153.600"
           },
           "DAC0_PLL_Enable": {
             "value": "true"
           },
+          "DAC0_Refclk_Div": {
+            "value": "1"
+          },
+          "DAC0_Refclk_Freq": {
+            "value": "491.520"
+          },
+          "DAC0_Sampling_Rate": {
+            "value": "4.9152"
+          },
+          "DAC2_Clock_Dist": {
+            "value": "2"
+          },
           "DAC2_Outclk_Freq": {
-            "value": "200.000"
+            "value": "153.600"
           },
           "DAC2_PLL_Enable": {
             "value": "true"
+          },
+          "DAC2_Refclk_Div": {
+            "value": "1"
+          },
+          "DAC2_Refclk_Freq": {
+            "value": "491.520"
+          },
+          "DAC2_Sampling_Rate": {
+            "value": "4.9152"
           },
           "DAC_Data_Width00": {
             "value": "4"
@@ -3113,7 +3134,7 @@
                 "value_src": "constant"
               },
               "FREQ_HZ": {
-                "value": "200000000",
+                "value": "153600000",
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
@@ -3176,7 +3197,7 @@
                 "value_src": "constant"
               },
               "FREQ_HZ": {
-                "value": "200000000",
+                "value": "153600000",
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
@@ -3468,7 +3489,7 @@
                 "value_src": "constant"
               },
               "FREQ_HZ": {
-                "value": "200000000",
+                "value": "153600000",
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
@@ -3499,7 +3520,7 @@
                 "value_src": "constant"
               },
               "FREQ_HZ": {
-                "value": "200000000",
+                "value": "153600000",
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
