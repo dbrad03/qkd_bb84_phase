@@ -39,9 +39,15 @@ set_property IOSTANDARD LVCMOS18 [ get_ports "btn[3]" ]
 
 
 ## CDC false paths — quasi-static signals with 2-FF synchronizers in RTL
-# clk_pl_0 <-> RFDAC0_CLK (Alice)
+# clk_pl_0 <-> RFDAC0_CLK
 set_false_path -from [get_clocks clk_pl_0] -to [get_clocks RFDAC0_CLK]
 set_false_path -from [get_clocks RFDAC0_CLK] -to [get_clocks clk_pl_0]
+# clk_pl_0 <-> RFDAC2_CLK (Alice on Tile 230)
+set_false_path -from [get_clocks clk_pl_0] -to [get_clocks RFDAC2_CLK]
+set_false_path -from [get_clocks RFDAC2_CLK] -to [get_clocks clk_pl_0]
+# RFDAC0_CLK <-> RFDAC2_CLK (cross-tile)
+set_false_path -from [get_clocks RFDAC0_CLK] -to [get_clocks RFDAC2_CLK]
+set_false_path -from [get_clocks RFDAC2_CLK] -to [get_clocks RFDAC0_CLK]
 
 set_property BITSTREAM.CONFIG.UNUSEDPIN PULLUP [current_design]
 set_property BITSTREAM.CONFIG.OVERTEMPSHUTDOWN ENABLE [current_design]
