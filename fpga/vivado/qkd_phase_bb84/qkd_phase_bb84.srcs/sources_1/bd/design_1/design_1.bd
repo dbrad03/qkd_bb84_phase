@@ -7,7 +7,8 @@
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2025.1"
+      "tool_version": "2025.1",
+      "validated": "true"
     },
     "design_tree": {
       "usp_rf_data_converter_0": "",
@@ -90,6 +91,9 @@
           },
           "DAC0_PLL_Enable": {
             "value": "true"
+          },
+          "DAC0_Refclk_Freq": {
+            "value": "491.520"
           },
           "DAC_Data_Width00": {
             "value": "4"
