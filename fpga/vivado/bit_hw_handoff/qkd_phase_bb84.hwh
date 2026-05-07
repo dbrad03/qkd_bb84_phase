@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed May  6 21:43:54 2026" VIVADOVERSION="2025.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed May  6 22:17:01 2026" VIVADOVERSION="2025.1">
 
   <SYSTEMINFO ARCH="zynquplusRFSOC" DEVICE="xczu48dr" NAME="design_1" PACKAGE="ffvg1517" SPEEDGRADE="-2"/>
 
@@ -1405,7 +1405,7 @@
         <PARAMETER NAME="C_DAC0_Clock_Source" VALUE="4"/>
         <PARAMETER NAME="C_DAC0_Clock_Source_MX" VALUE="4"/>
         <PARAMETER NAME="C_DAC0_Enable" VALUE="1"/>
-        <PARAMETER NAME="C_DAC0_FBDIV" VALUE="32"/>
+        <PARAMETER NAME="C_DAC0_FBDIV" VALUE="20"/>
         <PARAMETER NAME="C_DAC0_Fabric_Freq" VALUE="307.200"/>
         <PARAMETER NAME="C_DAC0_Fs_Max" VALUE="7.000"/>
         <PARAMETER NAME="C_DAC0_Interpolation" VALUE="8"/>
@@ -1415,7 +1415,7 @@
         <PARAMETER NAME="C_DAC0_Outclk_Freq" VALUE="307.200"/>
         <PARAMETER NAME="C_DAC0_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="C_DAC0_Refclk_Div" VALUE="1"/>
-        <PARAMETER NAME="C_DAC0_Refclk_Freq" VALUE="307.200"/>
+        <PARAMETER NAME="C_DAC0_Refclk_Freq" VALUE="491.520"/>
         <PARAMETER NAME="C_DAC0_Sampling_Rate" VALUE="4.9152"/>
         <PARAMETER NAME="C_DAC0_Slices" VALUE="2"/>
         <PARAMETER NAME="C_DAC0_VOP" VALUE="20.0"/>
@@ -2148,7 +2148,7 @@
         <PARAMETER NAME="DAC0_Outclk_Freq" VALUE="307.200"/>
         <PARAMETER NAME="DAC0_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="DAC0_Refclk_Div" VALUE="1"/>
-        <PARAMETER NAME="DAC0_Refclk_Freq" VALUE="307.200"/>
+        <PARAMETER NAME="DAC0_Refclk_Freq" VALUE="491.520"/>
         <PARAMETER NAME="DAC0_Sampling_Rate" VALUE="4.9152"/>
         <PARAMETER NAME="DAC0_VOP" VALUE="20.0"/>
         <PARAMETER NAME="DAC1_Band" VALUE="0"/>
