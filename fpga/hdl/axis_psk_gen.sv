@@ -42,7 +42,7 @@ module axis_psk_gen #(
     logic signed [SAMPLE_WIDTH-1:0] iq_i, iq_q;
 
     always_ff @(posedge aclk) begin
-        if (!aresetn) begin
+        if (!aresetn || !enable) begin
             iq_i <= ZERO;
             iq_q <= ZERO;
         end else begin
@@ -64,8 +64,8 @@ module axis_psk_gen #(
         end
     endgenerate
 
-    // Continuous stream: always valid when enabled
-    assign m_axis_tvalid = enable;
+    // Always valid — DAC gets zeros when muted (enable=0), PSK when active
+    assign m_axis_tvalid = 1'b1;
 
 endmodule
 
