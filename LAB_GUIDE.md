@@ -104,7 +104,8 @@ HeNe ───> Lens ───> AOD ──── 1st order ───> Fiber coup
 | Interpolation | 8x |
 | Fabric Clock | 307.2 MHz |
 | Mixer Mode | I/Q to Real |
-| NCO Frequency | 150.0 MHz |
+| Alice NCO | 100.0 MHz (configurable from Python) |
+| Bob NCO | 90.0 MHz (configurable from Python) |
 | Samples per Beat | 2 (64-bit AXI-Stream) |
 
 ### Board Controls
@@ -204,14 +205,14 @@ Focus the beam tightly through the aperture to maximize switching speed.
 
 | Address | Name | R/W | Description |
 |---------|------|-----|-------------|
-| 0x00 | CTRL | R/W | [0] global_en, [1] alice_en, [2] auto_cycle_en |
-| 0x04 | ALICE_PHASE_STAGED | R/W | [1:0] Staged phase |
-| 0x08 | AUTO_FREQ_HZ | R | Current switching frequency in Hz |
-| 0x0C | STATUS | R | [0] alice_running, [1] auto_cycling, [2] sw_mode |
-| 0x10 | PHASE_APPLY | R/W | Write 1 to latch staged phase (auto-clears) |
-| 0x14 | ALICE_PHASE_ACTIVE | R | [1:0] Currently active phase |
-| 0x18 | AUTO_PERIOD_TICKS | R | Period in fabric clock ticks (307.2 MHz) |
-| 0x1C | VERSION | R | 0x2026_0505 |
+| 0x00 | CTRL | R/W | [0] global_en, [1] alice_en, [2] bob_en, [3] auto_cycle_en |
+| 0x04 | ALICE_PHASE_STAGED | R/W | [1:0] Staged Alice phase |
+| 0x08 | BOB_PHASE_STAGED | R/W | [1:0] Staged Bob phase |
+| 0x0C | STATUS | R | [0] alice_running, [1] bob_running, [2] auto_cycling, [3] sw_mode |
+| 0x10 | PHASE_APPLY | R/W | Write 1 to latch both staged phases (auto-clears) |
+| 0x14 | ACTIVE_PHASES | R | [1:0] alice active, [3:2] bob active |
+| 0x18 | AUTO_FREQ_HZ | R | Auto-cycle switching frequency (Hz) |
+| 0x1C | VERSION | R | 0x2026_0508 |
 
 ## AOD Alignment at 633 nm
 

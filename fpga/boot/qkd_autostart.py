@@ -20,14 +20,11 @@ The bitstream (.bit) and hardware handoff (.hwh) must both be in
 """
 
 import sys
-import time
 
 BITSTREAM_PATH = "/home/xilinx/qkd_phase_bb84.bit"
-NCO_FREQ_MHZ = 150.0
-DAC_TILE_IDX = 0
-DAC_BLOCK_IDX = 0
+ALICE_NCO_MHZ = 100.0
+BOB_NCO_MHZ   = 90.0
 
-# Register offsets
 REG_CTRL = 0x00
 REG_VERSION = 0x1C
 
@@ -35,7 +32,6 @@ REG_VERSION = 0x1C
 def main():
     print("[qkd] Starting QKD auto-configuration...")
 
-    # Step 1: Reset PL and set reference clocks
     from pynq import PL
     PL.reset()
 
@@ -43,42 +39,43 @@ def main():
     xrfclk.set_ref_clks()
     print("[qkd] Reference clocks configured")
 
-    # Step 2: Load bitstream
     from pynq import Overlay, MMIO
     ol = Overlay(BITSTREAM_PATH)
     print(f"[qkd] Bitstream loaded: {BITSTREAM_PATH}")
 
-    # Step 3: Get MMIO handle to QKD registers
     qkd_info = ol.ip_dict['qkd_top_wrapper_bd_0']
-    base_addr = qkd_info['phys_addr']
-    addr_range = qkd_info['addr_range']
-    mmio = MMIO(base_addr, addr_range)
+    mmio = MMIO(qkd_info['phys_addr'], qkd_info['addr_range'])
 
     version = mmio.read(REG_VERSION)
     print(f"[qkd] VERSION: {version:#010x}")
-    if version != 0x2026_0505:
-        print(f"[qkd] WARNING: unexpected version (expected 0x20260505)")
+    if version != 0x2026_0508:
+        print(f"[qkd] WARNING: unexpected version (expected 0x20260508)")
 
-    # Step 4: Configure RF-DAC
     import xrfdc
     rf = ol.usp_rf_data_converter_0
 
-    dac_tile = rf.dac_tiles[DAC_TILE_IDX]
-    print(f"[qkd] DAC Tile {DAC_TILE_IDX}: PLL locked = {dac_tile.PLLLockStatus}")
+    # Alice — DAC Tile 0 (Tile 228)
+    alice_tile = rf.dac_tiles[0]
+    print(f"[qkd] Alice Tile 0: PLL locked = {alice_tile.PLLLockStatus}")
+    alice_tile.blocks[0].MixerSettings['Freq'] = ALICE_NCO_MHZ
+    alice_tile.blocks[0].UpdateEvent(xrfdc.EVENT_MIXER)
+    print(f"[qkd] Alice NCO: {ALICE_NCO_MHZ} MHz")
 
-    block = dac_tile.blocks[DAC_BLOCK_IDX]
-    block.MixerSettings['Freq'] = NCO_FREQ_MHZ
-    block.UpdateEvent(xrfdc.EVENT_MIXER)
-    print(f"[qkd] NCO set to {NCO_FREQ_MHZ} MHz")
+    # Bob — DAC Tile 2 (Tile 230)
+    bob_tile = rf.dac_tiles[2]
+    print(f"[qkd] Bob Tile 2: PLL locked = {bob_tile.PLLLockStatus}")
+    bob_tile.blocks[0].MixerSettings['Freq'] = BOB_NCO_MHZ
+    bob_tile.blocks[0].UpdateEvent(xrfdc.EVENT_MIXER)
+    print(f"[qkd] Bob NCO: {BOB_NCO_MHZ} MHz")
 
-    # Step 5: Enable outputs (global_en + alice_en, no auto_cycle_en)
-    # Auto-cycle is controlled by SW2 on the board
-    mmio.write(REG_CTRL, 0x03)
-    print("[qkd] Outputs enabled (CTRL=0x03)")
+    # Enable both channels: global_en + alice_en + bob_en
+    mmio.write(REG_CTRL, 0x07)
+    print("[qkd] Both channels enabled (CTRL=0x07)")
 
     print("[qkd] Ready. Use board switches and buttons to operate.")
     print("[qkd]   SW3=0: switch mode | SW3=1,SW2=1: auto-cycle")
     print("[qkd]   SW1=0: full 4-phase | SW1=1: 0/pi toggle")
+    print("[qkd]   CTRL: 0x03=Alice, 0x05=Bob, 0x07=both, 0x0B=Alice+auto")
 
 
 if __name__ == "__main__":
