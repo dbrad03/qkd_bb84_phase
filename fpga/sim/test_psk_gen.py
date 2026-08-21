@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, RisingEdge, FallingEdge, ReadOnly
-from cocotb.runner import get_runner
+from cocotb_tools.runner import get_runner
 
 # Add sim dir to path for shared utilities
 sys.path.insert(0, str(Path(__file__).resolve().parent))

@@ -105,6 +105,11 @@ module auto_phase_cycler #(
     // ---------------------------------------------------------------
     logic [31:0] freq_hz_prev;
     logic        div_start;
+    logic        div_busy;
+    logic        div_done;
+    logic [4:0]  div_step;
+    logic [63:0] div_acc;     // {partial_remainder[31:0], shifted_dividend[31:0]}
+    logic [31:0] div_divisor;
 
     always_ff @(posedge axi_clk) begin
         if (!axi_resetn) begin
@@ -121,11 +126,7 @@ module auto_phase_cycler #(
         end
     end
 
-    logic        div_busy;
-    logic        div_done;
-    logic [4:0]  div_step;
-    logic [63:0] div_acc;     // {partial_remainder[31:0], shifted_dividend[31:0]}
-    logic [31:0] div_divisor;
+
 
     // Combinational trial: shift left, compare upper half with divisor
     wire [63:0] div_shifted = {div_acc[62:0], 1'b0};

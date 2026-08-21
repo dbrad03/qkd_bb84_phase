@@ -22,12 +22,15 @@ fpga/
 
 ## Running Simulations
 
-Requires cocotb (<2.0) and Icarus Verilog.
+Requires `cocotb` (<2.0), `cocotb-bus`, and a supported HDL simulator (Icarus Verilog
+by default). Each testbench is a standalone Python script — no Makefile needed:
 
 ```bash
-source .venv/bin/activate
-python3 fpga/sim/test_psk_gen.py
-python3 fpga/sim/test_qkd_top.py
+python3 fpga/sim/test_psk_gen.py        # PSK generator unit tests
+python3 fpga/sim/test_btn_debounce.py   # button debounce unit tests
+python3 fpga/sim/test_qkd_top.py        # top-level integration tests
+
+SIM=verilator python3 fpga/sim/test_psk_gen.py   # use a different simulator
 ```
 
 ---

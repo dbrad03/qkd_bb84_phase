@@ -1,0 +1,21 @@
+# Local working material — deliberately kept out of the public repo
+peer_evaluation.md
+final_zip/
+*.zip
+
+# Superseded report/presentation revisions (the final report lives in docs/)
+Reports/
+Presentations/
+6_2410_Final_Report__Caio_and_Dylan-*.pdf
+High-Speed Phase-Encoded QKD*.pdf
+qkd_report_review.tex
+qkd_report_updates.tex
+qkd_report_updates.log
+
+# Build and tool artifacts
+sim_build/
+cocotb_figures/
+screenshots/
+*.jou
+results.xml
+__pycache__/

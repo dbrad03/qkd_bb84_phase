@@ -23,7 +23,7 @@ from pathlib import Path
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, FallingEdge, ReadOnly, RisingEdge
 
-from cocotb.runner import get_runner
+from cocotb_tools.runner import get_runner
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from axis_tb_utils import reset
